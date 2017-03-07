@@ -47,6 +47,8 @@
 <script>
 	$(document).ready(function(e){
 		$('#execute').click(function(e){
+			$('#execute').toggleClass("disabled");
+			$('#state').text("Выполняется...");
 			$.ajax({
 			method: 'POST',
 			url: 'remexec-web.php',
@@ -54,7 +56,9 @@
 				code: $('#code').val(),
 			},
 			success: function(data){
-				$('#result').text(data);},
+				$('#execute').toggleClass("disabled");
+				$('#state').text("")
+				$('#result').html(data);},
 			});
 		});
 	});
@@ -62,7 +66,7 @@
 <body>
 	<div class="container-fluid base">
 		<div class="col-md-5">
-			<textarea id="code" style="width: 100%; height: 100%;">#include &lt;iostream&gt;
+			<textarea id="code" class="form-control" style="resize: none; width: 100%; height: 100%;">#include &lt;iostream&gt;
 
 using namespace std;
 
@@ -72,9 +76,10 @@ int main(int argc, char **argv){
 		</div>
 		<div class="col-md-2">
 			<button class="btn btn-default" style="width: 100%;" id="execute">Выполнить</button>
+			<div id="state"></div>
 		</div>
 		<div class="col-md-5">
-			<div id="result">Как пропатчить КДЕ2<br><font color="red">(Вывод)</font></div>
+			<div id="result"><font color="red">(Вывод)</font></div>
 		</div>
 	</div>
 </body>
