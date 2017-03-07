@@ -1,6 +1,4 @@
 <?php
-///	var_dump($_POST);
-
 	$tmpfname = tempnam("/tmp", "source").".cpp";
 	$srcfile = fopen($tmpfname, "w");
 	fwrite($srcfile, $_POST['code']);
@@ -9,7 +7,7 @@
 	$command = "./remexec cpp ".escapeshellcmd($tmpfname);
 	$handle = popen($command.' 2>&1', 'r');
 	while ($read = fgets($handle)){
-		echo htmlspecialchars ($read)."<br>";
+		echo htmlspecialchars ($read);
 	}
 	pclose($handle);
 
