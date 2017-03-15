@@ -23,9 +23,11 @@
 		}
 		
 		.base {
+			width: 100%;
 			height: 100%;
 			min-width: 400px;
-			padding: 20px;
+			min-height: 400px;
+			padding: 20px 0;
 		}
 		
 		.block {
@@ -44,6 +46,20 @@
 			font-family: monospace;
 			white-space: pre;
 		}
+		
+		.main {
+			display: flex;
+			flex-flow: column nowrap;
+			height: 100%;
+		}
+		
+		.main-header {
+			padding: 0 15px 15px 15px;
+		}
+		
+		.main-content {
+			flex: 1 1 100%;
+		}
 	</style>
 <script>
 	$(document).ready(function(e){
@@ -55,6 +71,7 @@
 			url: 'remexec-web.php',
 			data: {
 				code: $('#code').val(),
+				lang: $('select[name=lang]').val(),
 			},
 			success: function(data){
 				$('#execute').toggleClass("disabled");
@@ -66,22 +83,32 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid base">
-		<div class="block col-md-5">
-			<textarea id="code" class="form-control" style="resize: none; width: 100%; height: 100%;">#include &lt;iostream&gt;
+	<div class="base">
+		<div class="main">
+			<div class="main-header">
+				<div style="display: inline-block; width: 100px;">RemExec-web</div>
+				<select name="lang" class="form-control" style="display: inline-block; width: auto;">
+					<option value="cpp" selected>C++</option>
+					<option value="python">Python</option>
+					<option value="bash">bash</option>
+				</select>
+				<button class="btn btn-default" style="" id="execute">Выполнить</button>
+				<div id="state" style="display: inline-block; margin-left: 10px;"></div>
+			</div>
+			<div class="main-content">
+				<div class="block col-md-6">
+					<textarea id="code" class="form-control" style="resize: none; width: 100%; height: 100%;">#include &lt;iostream&gt;
 
 using namespace std;
 
 int main(int argc, char **argv){
   cout &lt;&lt; "Hello, world" &lt;&lt; endl;
 }</textarea>
-		</div>
-		<div class="block col-md-2">
-			<button class="btn btn-default" style="width: 100%;" id="execute">Выполнить</button>
-			<div id="state"></div>
-		</div>
-		<div class="block col-md-5">
-			<div id="result"><font color="red">(Вывод)</font></div>
+				</div>
+				<div class="block col-md-6">
+					<div id="result"><font color="red">(Вывод)</font></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
