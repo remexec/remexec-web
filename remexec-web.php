@@ -4,7 +4,7 @@
 	fwrite($srcfile, $_POST['code']);
 	fclose($srcfile);
 
-	$command = "./remexec ".$_POST['lang']." ".escapeshellcmd($tmpfname);
+	$command = "./remexec ".escapeshellcmd($_POST['lang'])." ".escapeshellcmd($tmpfname);
 	$handle = popen($command.' 2>&1', 'r');
 	while ($read = fgets($handle)){
 		echo htmlspecialchars ($read);
