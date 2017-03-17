@@ -1,5 +1,17 @@
 <?php
-	$tmpfname = tempnam("/tmp", "source").".cpp";
+	$ext = "";
+	switch($_POST['lang']){
+		case 'cpp':
+			$ext = ".cpp";
+			break;
+		case 'python':
+			$ext = ".py";
+			break;
+		case 'bash':
+			$ext = ".sh";
+			break;
+	}
+	$tmpfname = "/tmp/source".md5(date()).$ext;
 	$srcfile = fopen($tmpfname, "w");
 	fwrite($srcfile, $_POST['code']);
 	fclose($srcfile);
@@ -11,5 +23,5 @@
 	}
 	pclose($handle);
 
-	unlink($srcfile);
+	unlink($tmpfname);
 ?>
